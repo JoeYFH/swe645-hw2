@@ -1,0 +1,21 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: swe645-hw2-deployment
+  labels:
+    app: swe645-hw2
+spec:
+  replicas: 3
+  selector:
+    matchLabels:
+      app: swe645-hw2
+  template:
+    metadata:
+      labels:
+        app: swe645-hw2
+    spec:
+      containers:
+        - name: swe645-hw2
+          image: joehuangyf/swe645-hw2:latest
+          ports:
+            - containerPort: 80

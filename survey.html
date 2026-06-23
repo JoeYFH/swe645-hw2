@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<!--
+  survey.html
+  Author: Yi Feng Huang
+  G Number: G01532343
+  Course: SWE645 - Component-Based Software Development
+  Purpose: Student Survey form using FolioOne Bootstrap template. Collects prospective student information, campus preferences, and raffle entry.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Student Survey - Yi Feng Huang | SWE645</title>
+  <meta name="description" content="GMU Student Survey - SWE645 Assignment 1">
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,100;0,300;0,400;0,500;0,700;0,900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&family=Raleway:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/vendor/swiper/swiper-bundle.min.css" rel="stylesheet">
+  <link href="assets/vendor/glightbox/css/glightbox.min.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    /* ── Section card matching template aesthetic ── */
+    .survey-card {
+      background: #fff;
+      border: 1px solid #e9ecef;
+      border-radius: 12px;
+      padding: 2rem 2.25rem;
+      margin-bottom: 1.5rem;
+      box-shadow: 0 2px 14px rgba(0,0,0,0.05);
+    }
+
+    .survey-card-title {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      margin-bottom: 1.5rem;
+      padding-bottom: 0.75rem;
+      border-bottom: 1px solid #f0f0f0;
+    }
+    .survey-card-title .step-num {
+      width: 30px; height: 30px;
+      background: #212529;
+      color: #fff;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.78rem;
+      font-weight: 700;
+      flex-shrink: 0;
+      font-family: 'Poppins', sans-serif;
+    }
+    .survey-card-title h4 {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      color: #212529;
+      margin: 0;
+      text-transform: uppercase;
+      letter-spacing: 0.04em;
+    }
+
+    /* Form labels */
+    .survey-label {
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.78rem;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+      color: #6c757d;
+      margin-bottom: 0.4rem;
+    }
+
+    /* Inputs */
+    .survey-input {
+      border: 1.5px solid #dee2e6;
+      border-radius: 8px;
+      padding: 0.65rem 1rem;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.9rem;
+      color: #212529;
+      transition: border-color 0.2s, box-shadow 0.2s;
+      width: 100%;
+    }
+    .survey-input:focus {
+      outline: none;
+      border-color: #212529;
+      box-shadow: 0 0 0 3px rgba(33,37,41,0.1);
+    }
+    .survey-input.is-error { border-color: #dc3545; }
+
+    textarea.survey-input { resize: vertical; min-height: 110px; }
+
+    select.survey-input {
+      appearance: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='14' height='14' fill='%23555' viewBox='0 0 16 16'%3E%3Cpath d='M7.247 11.14 2.451 5.658C1.885 5.013 2.345 4 3.204 4h9.592a1 1 0 0 1 .753 1.659l-4.796 5.48a1 1 0 0 1-1.506 0z'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 1rem center;
+      padding-right: 2.5rem;
+      cursor: pointer;
+    }
+
+    /* Option pills – clean dark style, no emoji */
+    .option-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      padding: 0.6rem 1rem;
+      border: 1.5px solid #dee2e6;
+      border-radius: 8px;
+      cursor: pointer;
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.875rem;
+      color: #444;
+      transition: border-color 0.2s, background 0.2s, color 0.2s;
+      user-select: none;
+    }
+    .option-pill:hover {
+      border-color: #212529;
+      background: #f8f9fa;
+      color: #212529;
+    }
+    .option-pill input[type="checkbox"],
+    .option-pill input[type="radio"] {
+      width: 15px; height: 15px;
+      flex-shrink: 0;
+      accent-color: #212529;
+      cursor: pointer;
+    }
+
+    /* Error messages */
+    .field-error {
+      font-size: 0.775rem;
+      color: #dc3545;
+      margin-top: 0.3rem;
+      display: none;
+    }
+    .field-error.show { display: block; }
+
+    /* Raffle hint */
+    .raffle-hint {
+      font-size: 0.78rem;
+      color: #6c757d;
+      margin-top: 0.35rem;
+      font-family: 'Raleway', sans-serif;
+    }
+    .raffle-count { font-weight: 700; color: #212529; }
+
+    /* Buttons */
+    .btn-survey-submit {
+      background: #212529;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 2.5rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-survey-submit:hover {
+      background: #000;
+      transform: translateY(-1px);
+    }
+    .btn-survey-cancel {
+      background: transparent;
+      color: #6c757d;
+      border: 1.5px solid #dee2e6;
+      border-radius: 8px;
+      padding: 0.75rem 1.75rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: border-color 0.2s, color 0.2s;
+    }
+    .btn-survey-cancel:hover { border-color: #212529; color: #212529; }
+
+    /* Success overlay */
+    .success-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.6);
+      z-index: 9999;
+      align-items: center;
+      justify-content: center;
+    }
+    .success-overlay.show { display: flex; }
+    .success-modal {
+      background: #fff;
+      border-radius: 14px;
+      padding: 3rem 2.5rem;
+      text-align: center;
+      max-width: 420px;
+      width: 90%;
+      animation: popIn 0.3s ease;
+    }
+    @keyframes popIn {
+      from { transform: scale(0.88); opacity: 0; }
+      to   { transform: scale(1);    opacity: 1; }
+    }
+    .success-modal h4 {
+      font-family: 'Poppins', sans-serif;
+      font-weight: 700;
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+    }
+    .success-modal p {
+      font-family: 'Raleway', sans-serif;
+      color: #6c757d;
+      margin-bottom: 1.75rem;
+      line-height: 1.7;
+    }
+  </style>
+</head>
+
+<body class="contact-page">
+
+  <header id="header" class="header d-flex align-items-center light-background sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="survey.html" class="active">Survey</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+            <div class="header-social-links">
+        <a href="https://www.linkedin.com/in/yi-feng-huang" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/JoeYFH" target="_blank" class="github"><i class="bi bi-github"></i></a>
+        <a href="https://www.instagram.com/joeyi_29/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:joehuangyf@gmail.com" class="email"><i class="bi bi-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <main class="main">
+    <section id="survey" class="contact section">
+
+      <!-- Section Title -->
+      <div class="container section-title" data-aos="fade-up">
+        <h2>Student Survey</h2>
+        <p>Help George Mason University improve the campus experience for prospective students.
+           Fields marked <span style="color:#dc3545;">*</span> are required.</p>
+      </div>
+
+      <div class="container" data-aos="fade-up" data-aos-delay="100">
+        <form id="surveyForm" novalidate>
+
+          <!-- 1. Personal Information -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">1</span>
+              <h4>Personal Information</h4>
+            </div>
+            <div class="row g-3">
+              <div class="col-md-6">
+                <div class="survey-label">First Name <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="firstName" placeholder="Yi Feng">
+                <div class="field-error" id="err-firstName">First name is required.</div>
+              </div>
+              <div class="col-md-6">
+                <div class="survey-label">Last Name <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="lastName" placeholder="Huang">
+                <div class="field-error" id="err-lastName">Last name is required.</div>
+              </div>
+              <div class="col-12">
+                <div class="survey-label">Street Address <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="address" placeholder="4400 University Dr">
+                <div class="field-error" id="err-address">Address is required.</div>
+              </div>
+              <div class="col-md-5">
+                <div class="survey-label">City <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="city" placeholder="Fairfax">
+                <div class="field-error" id="err-city">City is required.</div>
+              </div>
+              <div class="col-md-3">
+                <div class="survey-label">State <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="state" placeholder="VA" maxlength="2">
+                <div class="field-error" id="err-state">State is required.</div>
+              </div>
+              <div class="col-md-4">
+                <div class="survey-label">ZIP Code <span style="color:#dc3545;">*</span></div>
+                <input type="text" class="survey-input" id="zip" placeholder="22030" maxlength="10">
+                <div class="field-error" id="err-zip">ZIP code is required.</div>
+              </div>
+              <div class="col-md-6">
+                <div class="survey-label">Telephone Number <span style="color:#dc3545;">*</span></div>
+                <input type="tel" class="survey-input" id="telephone" placeholder="(703) 000-0000">
+                <div class="field-error" id="err-telephone">Phone number is required.</div>
+              </div>
+              <div class="col-md-6">
+                <div class="survey-label">Email Address <span style="color:#dc3545;">*</span></div>
+                <input type="email" class="survey-input" id="email" placeholder="yhuang@gmu.edu">
+                <div class="field-error" id="err-email">A valid email address is required.</div>
+              </div>
+              <div class="col-md-4">
+                <div class="survey-label">Date of Survey <span style="color:#dc3545;">*</span></div>
+                <input type="date" class="survey-input" id="surveyDate">
+                <div class="field-error" id="err-surveyDate">Survey date is required.</div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 2. Campus Preferences (Checkboxes) -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">2</span>
+              <h4>What Did You Like Most About the Campus?</h4>
+            </div>
+            <p style="font-size:0.82rem;color:#6c757d;margin-bottom:1rem;font-family:'Raleway',sans-serif;">Select all that apply.</p>
+            <div class="row g-2">
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="students"> Students</label></div>
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="location"> Location</label></div>
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="campus"> Campus</label></div>
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="atmosphere"> Atmosphere</label></div>
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="dorm rooms"> Dorm Rooms</label></div>
+              <div class="col-sm-4 col-6"><label class="option-pill w-100"><input type="checkbox" name="liked" value="sports"> Sports</label></div>
+            </div>
+          </div>
+
+          <!-- 3. How Did You Hear (Radio) -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">3</span>
+              <h4>How Did You Become Interested in the University?</h4>
+            </div>
+            <div class="row g-2">
+              <div class="col-sm-3 col-6"><label class="option-pill w-100"><input type="radio" name="interest" value="friends"> Friends</label></div>
+              <div class="col-sm-3 col-6"><label class="option-pill w-100"><input type="radio" name="interest" value="television"> Television</label></div>
+              <div class="col-sm-3 col-6"><label class="option-pill w-100"><input type="radio" name="interest" value="internet"> Internet</label></div>
+              <div class="col-sm-3 col-6"><label class="option-pill w-100"><input type="radio" name="interest" value="other"> Other</label></div>
+            </div>
+          </div>
+
+          <!-- 4. Likelihood (Dropdown) -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">4</span>
+              <h4>Likelihood of Recommendation</h4>
+            </div>
+            <div style="max-width:360px;">
+              <div class="survey-label">How likely are you to recommend GMU? <span style="color:#dc3545;">*</span></div>
+              <select class="survey-input" id="likelihood">
+                <option value="" disabled selected>Select an option</option>
+                <option value="Very Likely">Very Likely</option>
+                <option value="Likely">Likely</option>
+                <option value="Unlikely">Unlikely</option>
+              </select>
+              <div class="field-error" id="err-likelihood">Please select an option.</div>
+            </div>
+          </div>
+
+          <!-- 5. Raffle -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">5</span>
+              <h4>Raffle Entry</h4>
+            </div>
+            <div class="survey-label">
+              Enter at least 10 comma-separated numbers (1–100)
+              <span style="color:#dc3545;">*</span>
+            </div>
+            <input type="text" class="survey-input" id="raffle"
+                   placeholder="e.g. 5, 23, 47, 12, 88, 3, 66, 41, 99, 17">
+            <div class="raffle-hint">
+              Numbers must be between 1 and 100. &nbsp;
+              Count: <span class="raffle-count" id="raffleCount">0</span> / 10 minimum
+            </div>
+            <div class="field-error" id="err-raffle">
+              Please enter at least 10 comma-separated numbers between 1 and 100.
+            </div>
+          </div>
+
+          <!-- 6. Comments -->
+          <div class="survey-card">
+            <div class="survey-card-title">
+              <span class="step-num">6</span>
+              <h4>Additional Comments</h4>
+            </div>
+            <div class="survey-label">Share any additional thoughts or feedback</div>
+            <textarea class="survey-input" id="comments"
+                      placeholder="Tell us more about your campus experience..."></textarea>
+          </div>
+
+          <!-- Buttons -->
+          <div class="d-flex justify-content-end gap-3 pb-5" data-aos="fade-up">
+            <button type="button" id="cancelBtn" class="btn-survey-cancel">Cancel</button>
+            <button type="submit" class="btn-survey-submit">Submit Survey</button>
+          </div>
+
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <!-- Success Modal -->
+  <div class="success-overlay" id="successOverlay">
+    <div class="success-modal">
+      <div style="font-size:2.5rem;margin-bottom:1rem;">&#10003;</div>
+      <h4>Survey Submitted</h4>
+      <p>Thank you for your feedback.<br>Good luck in the raffle — we'll be in touch!</p>
+      <a href="index.html" class="btn-survey-submit" style="display:block;text-decoration:none;">Back to Homepage</a>
+    </div>
+  </div>
+
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Yi Feng Huang</strong> <span>All Rights Reserved</span></p>
+        <p class="mt-1 text-muted" style="font-size:.85rem;">SWE645 Assignment 1 · George Mason University · Summer 2025</p>
+      </div>
+            <div class="social-links d-flex justify-content-center">
+        <a href="https://www.linkedin.com/in/yi-feng-huang" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/JoeYFH" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://www.instagram.com/joeyi_29/" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:joehuangyf@gmail.com"><i class="bi bi-envelope"></i></a>
+      </div>
+      <div class="credits">Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a></div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/php-email-form/validate.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/vendor/typed.js/typed.umd.js"></script>
+  <script src="assets/vendor/waypoints/noframework.waypoints.js"></script>
+  <script src="assets/vendor/purecounter/purecounter_vanilla.js"></script>
+  <script src="assets/vendor/swiper/swiper-bundle.min.js"></script>
+  <script src="assets/vendor/imagesloaded/imagesloaded.pkgd.min.js"></script>
+  <script src="assets/vendor/isotope-layout/isotope.pkgd.min.js"></script>
+  <script src="assets/vendor/glightbox/js/glightbox.min.js"></script>
+  <script src="assets/js/main.js"></script>
+
+  <script>
+    // Live raffle counter
+    const raffleInput = document.getElementById('raffle');
+    const raffleCount = document.getElementById('raffleCount');
+    raffleInput.addEventListener('input', () => {
+      raffleCount.textContent = raffleInput.value.split(',').map(s => s.trim()).filter(Boolean).length;
+    });
+
+    function setError(id, show) {
+      document.getElementById('err-' + id)?.classList.toggle('show', show);
+      document.getElementById(id)?.classList.toggle('is-error', show);
+    }
+
+    function validateRaffle(val) {
+      const parts = val.split(',').map(s => s.trim()).filter(Boolean);
+      if (parts.length < 10) return false;
+      return parts.every(p => { const n = Number(p); return Number.isInteger(n) && n >= 1 && n <= 100; });
+    }
+
+    document.getElementById('surveyForm').addEventListener('submit', function(e) {
+      e.preventDefault();
+      let valid = true;
+
+      ['firstName','lastName','address','city','state','zip','telephone','email','surveyDate','likelihood'].forEach(id => {
+        const el = document.getElementById(id);
+        const empty = !el.value.trim();
+        if (id === 'email' && !empty && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(el.value)) {
+          setError(id, true); valid = false;
+        } else { setError(id, empty); if (empty) valid = false; }
+      });
+
+      const raffleOk = validateRaffle(raffleInput.value);
+      setError('raffle', !raffleOk);
+      if (!raffleOk) valid = false;
+
+      if (valid) {
+        document.getElementById('successOverlay').classList.add('show');
+      } else {
+        document.querySelector('.is-error, .field-error.show')
+          ?.scrollIntoView({ behavior: 'smooth', block: 'center' });
+      }
+    });
+
+    document.getElementById('cancelBtn').addEventListener('click', () => {
+      if (confirm('Clear all fields?')) {
+        document.getElementById('surveyForm').reset();
+        raffleCount.textContent = '0';
+        document.querySelectorAll('.is-error').forEach(el => el.classList.remove('is-error'));
+        document.querySelectorAll('.field-error.show').forEach(el => el.classList.remove('show'));
+      }
+    });
+  </script>
+
+</body>
+</html>

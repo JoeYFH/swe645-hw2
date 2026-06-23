@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<!--
+  error.html
+  Author: Yi Feng Huang
+  G Number: G01532343
+  Course: SWE645 - Component-Based Software Development
+  Purpose: Error/404 page using FolioOne Bootstrap template. Displayed when a requested page is not found.
+-->
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta content="width=device-width, initial-scale=1.0" name="viewport">
+  <title>Page Not Found - Yi Feng Huang | SWE645</title>
+
+  <link href="assets/img/favicon.png" rel="icon">
+  <link href="assets/img/apple-touch-icon.png" rel="apple-touch-icon">
+
+  <link href="https://fonts.googleapis.com" rel="preconnect">
+  <link href="https://fonts.gstatic.com" rel="preconnect" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700&family=Poppins:wght@300;400;600;700&family=Raleway:wght@300;400;600&display=swap" rel="stylesheet">
+
+  <link href="assets/vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+  <link href="assets/vendor/bootstrap-icons/bootstrap-icons.css" rel="stylesheet">
+  <link href="assets/vendor/aos/aos.css" rel="stylesheet">
+  <link href="assets/css/main.css" rel="stylesheet">
+
+  <style>
+    .error-page-wrapper {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+    .error-main {
+      flex: 1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 60px 20px;
+    }
+    .error-content {
+      text-align: center;
+      max-width: 560px;
+    }
+    .error-code {
+      font-family: 'Poppins', sans-serif;
+      font-size: clamp(8rem, 28vw, 14rem);
+      font-weight: 800;
+      line-height: 1;
+      color: #e63946;
+      letter-spacing: -6px;
+      margin-bottom: 0;
+      text-shadow: 4px 4px 0px rgba(230,57,70,0.15);
+    }
+    .error-divider {
+      width: 60px;
+      height: 4px;
+      background: #e63946;
+      margin: 1.25rem auto;
+      border-radius: 2px;
+    }
+    .error-title {
+      font-family: 'Poppins', sans-serif;
+      font-size: 1.4rem;
+      font-weight: 600;
+      color: #212529;
+      margin-bottom: 0.75rem;
+    }
+    .error-msg {
+      font-family: 'Raleway', sans-serif;
+      font-size: 0.975rem;
+      color: #6c757d;
+      line-height: 1.75;
+      margin-bottom: 2rem;
+    }
+    .btn-home {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      background: #212529;
+      color: #fff;
+      border: none;
+      border-radius: 8px;
+      padding: 0.75rem 2rem;
+      font-family: 'Poppins', sans-serif;
+      font-size: 0.875rem;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      text-decoration: none;
+      text-transform: uppercase;
+      transition: background 0.2s, transform 0.15s;
+    }
+    .btn-home:hover {
+      background: #000;
+      color: #fff;
+      transform: translateY(-2px);
+    }
+  </style>
+</head>
+
+<body class="starter-page-page error-page-wrapper">
+
+  <!-- HEADER -->
+  <header id="header" class="header d-flex align-items-center light-background sticky-top">
+    <div class="container position-relative d-flex align-items-center justify-content-between">
+      <nav id="navmenu" class="navmenu">
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="about.html">About</a></li>
+          <li><a href="resume.html">Resume</a></li>
+          <li><a href="survey.html">Survey</a></li>
+        </ul>
+        <i class="mobile-nav-toggle d-xl-none bi bi-list"></i>
+      </nav>
+            <div class="header-social-links">
+        <a href="https://www.linkedin.com/in/yi-feng-huang" target="_blank" class="linkedin"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/JoeYFH" target="_blank" class="github"><i class="bi bi-github"></i></a>
+        <a href="https://www.instagram.com/joeyi_29/" target="_blank" class="instagram"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:joehuangyf@gmail.com" class="email"><i class="bi bi-envelope"></i></a>
+      </div>
+    </div>
+  </header>
+
+  <!-- ERROR CONTENT -->
+  <main class="error-main">
+    <div class="error-content" data-aos="fade-up">
+      <p class="error-code">404</p>
+      <div class="error-divider"></div>
+      <h1 class="error-title">Page Not Found</h1>
+      <p class="error-msg">
+        Sorry, the page you're looking for doesn't exist or is temporarily unavailable.<br>
+        It may have been moved, deleted, or the URL may be incorrect.
+      </p>
+      <a href="index.html" class="btn-home">
+        <i class="bi bi-house-door"></i> Back to Homepage
+      </a>
+    </div>
+  </main>
+
+  <!-- FOOTER -->
+  <footer id="footer" class="footer">
+    <div class="container">
+      <div class="copyright text-center">
+        <p>© <span>Copyright</span> <strong class="px-1 sitename">Yi Feng Huang</strong> <span>All Rights Reserved</span></p>
+        <p class="mt-1 text-muted" style="font-size:.85rem;">SWE645 Assignment 1 · George Mason University · Summer 2025</p>
+      </div>
+            <div class="social-links d-flex justify-content-center">
+        <a href="https://www.linkedin.com/in/yi-feng-huang" target="_blank"><i class="bi bi-linkedin"></i></a>
+        <a href="https://github.com/JoeYFH" target="_blank"><i class="bi bi-github"></i></a>
+        <a href="https://www.instagram.com/joeyi_29/" target="_blank"><i class="bi bi-instagram"></i></a>
+        <a href="mailto:joehuangyf@gmail.com"><i class="bi bi-envelope"></i></a>
+      </div>
+      <div class="credits">
+        Designed by <a href="https://bootstrapmade.com/">BootstrapMade</a>
+      </div>
+    </div>
+  </footer>
+
+  <a href="#" id="scroll-top" class="scroll-top d-flex align-items-center justify-content-center"><i class="bi bi-arrow-up-short"></i></a>
+  <div id="preloader"></div>
+
+  <script src="assets/vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/vendor/aos/aos.js"></script>
+  <script src="assets/js/main.js"></script>
+
+</body>
+</html>
